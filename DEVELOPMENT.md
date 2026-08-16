@@ -51,6 +51,16 @@ The only thing that touches a real provider. Unit tests and the testbed both use
 until this passes, nothing has proven that a request body, a response shape or an error code is
 right.
 
+Easiest setup — `cp .env.example .env.local`, fill it in, and every run picks it up:
+
+```bash
+npm run eval                              # uses .env.local
+npm run eval -- --case short-factual      # one case
+```
+
+`.env.local` is git-ignored and loaded with `process.loadEnvFile` (stdlib, no dotenv dependency).
+Flags and real environment variables both override it. Or pass everything inline:
+
 ```bash
 PROMPT_DOCTOR_KEY=sk-ant-... npm run eval
 PROMPT_DOCTOR_KEY=sk-...     npm run eval -- --provider openai --model gpt-4.1-mini

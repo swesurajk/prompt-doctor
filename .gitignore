@@ -4,3 +4,5 @@ public/icons/
 *.zip
 .DS_Store
 .claude/
+.env
+.env.*

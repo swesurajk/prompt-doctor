@@ -20,21 +20,29 @@ import { callProvider, ProviderError } from '../src/shared/providers.ts';
 import { buildUserBrief, SYSTEM_BRIEF } from '../src/shared/brief.ts';
 import { extractJson, parseAnalysis, withScore } from '../src/shared/scoring.ts';
 
+// Local, git-ignored dev config. process.loadEnvFile is stdlib — no dotenv.
+// Real environment variables still win; the file only fills in the blanks.
+try {
+  process.loadEnvFile(new URL('../.env.local', import.meta.url).pathname);
+} catch {
+  /* no .env.local — flags and the environment are the only sources */
+}
+
 const args = process.argv.slice(2);
 const flag = (name, fallback) => {
   const i = args.indexOf(`--${name}`);
   return i === -1 ? fallback : args[i + 1];
 };
 
-const provider = flag('provider', 'anthropic');
+const provider = flag('provider', process.env.PROMPT_DOCTOR_PROVIDER ?? 'anthropic');
 const DEFAULT_MODEL = {
   anthropic: 'claude-sonnet-4-5',
   openai: 'gpt-4.1-mini',
   google: 'gemini-2.5-flash',
   custom: 'local',
 };
-const model = flag('model', DEFAULT_MODEL[provider] ?? 'claude-sonnet-4-5');
-const baseUrl = flag('base-url', '');
+const model = flag('model', process.env.PROMPT_DOCTOR_MODEL ?? DEFAULT_MODEL[provider] ?? 'claude-sonnet-4-5');
+const baseUrl = flag('base-url', process.env.PROMPT_DOCTOR_BASE_URL ?? '');
 const only = flag('case', '');
 const apiKey = process.env.PROMPT_DOCTOR_KEY ?? process.env.ANTHROPIC_API_KEY ?? '';
 
