@@ -64,7 +64,7 @@ function accessibleText(el: HTMLElement): string {
 
 function score(el: HTMLElement, hints: string[]): number {
   if (!isVisible(el)) return -1;
-  if (el.closest('[data-prompt-copilot]')) return -1;
+  if (el.closest('[data-prompt-doctor]')) return -1;
   if ((el as HTMLTextAreaElement).disabled || (el as HTMLTextAreaElement).readOnly) return -1;
   if (el.getAttribute('aria-hidden') === 'true') return -1;
 

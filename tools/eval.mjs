@@ -5,8 +5,8 @@
  * tests and the browser testbed both use canned data. Run it after changing
  * `brief.ts` or `providers.ts`, and before any release.
  *
- *   PROMPT_COPILOT_KEY=sk-... npm run eval                    # anthropic default
- *   PROMPT_COPILOT_KEY=... npm run eval -- --provider openai --model gpt-4.1-mini
+ *   PROMPT_DOCTOR_KEY=sk-... npm run eval                    # anthropic default
+ *   PROMPT_DOCTOR_KEY=... npm run eval -- --provider openai --model gpt-4.1-mini
  *   ... npm run eval -- --provider custom --base-url http://localhost:11434/v1
  *   ... npm run eval -- --case short-factual                  # one case only
  *
@@ -36,10 +36,10 @@ const DEFAULT_MODEL = {
 const model = flag('model', DEFAULT_MODEL[provider] ?? 'claude-sonnet-4-5');
 const baseUrl = flag('base-url', '');
 const only = flag('case', '');
-const apiKey = process.env.PROMPT_COPILOT_KEY ?? process.env.ANTHROPIC_API_KEY ?? '';
+const apiKey = process.env.PROMPT_DOCTOR_KEY ?? process.env.ANTHROPIC_API_KEY ?? '';
 
 if (!apiKey) {
-  console.error('Set PROMPT_COPILOT_KEY (or ANTHROPIC_API_KEY) in the environment.');
+  console.error('Set PROMPT_DOCTOR_KEY (or ANTHROPIC_API_KEY) in the environment.');
   process.exit(2);
 }
 

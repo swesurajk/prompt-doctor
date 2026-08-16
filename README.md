@@ -1,6 +1,6 @@
-# ✨ Prompt Copilot
+# ✨ Prompt Doctor
 
-**AI Prompt Analyzer & Assistant** — a Chrome extension that sits next to the prompt box on
+**Diagnose & improve your AI prompts** — a Chrome extension that sits next to the prompt box on
 ChatGPT, Claude, Gemini, Perplexity, Microsoft Copilot and Grok. Click ✨ Improve and it scores your
 prompt, tells you what is actually missing, and hands back a better version you can edit before it
 goes anywhere near the input box.
@@ -8,7 +8,7 @@ goes anywhere near the input box.
 It is not a "make it longer" button. A short prompt can score 100.
 
 <p align="center">
-  <img src="docs/panel-health.png" alt="The Prompt Copilot panel showing a score of 62 out of 100, flagging a missing output format, unknown target audience and ambiguous scope, and asking which seniority level the interview is for" width="49%">
+  <img src="docs/panel-health.png" alt="The Prompt Doctor panel showing a score of 62 out of 100, flagging a missing output format, unknown target audience and ambiguous scope, and asking which seniority level the interview is for" width="49%">
   <img src="docs/panel-improved.png" alt="The improved prompt in an editable box, with a list explaining that Java versions, review scope, table output and a clarification rule were added" width="49%">
 </p>
 <p align="center"><sub>Left: what's weak and why. Right: the rewrite, editable before it goes anywhere.<br>
@@ -69,7 +69,7 @@ Then in Chrome: `chrome://extensions` → enable **Developer mode** → **Load u
 
 Add an API key for one provider (Anthropic, OpenAI, Google, or any OpenAI-compatible endpoint
 including Ollama and LM Studio). It is **your** key calling **your** provider — there is no
-Prompt Copilot server.
+Prompt Doctor server.
 
 ## Use
 

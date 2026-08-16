@@ -23,7 +23,7 @@ const MODE_BRIEF: Record<Mode, string> = {
  * The system brief. Everything about product quality lives or dies here, so it
  * is written as instructions to a careful editor, not as a checklist runner.
  */
-export const SYSTEM_BRIEF = `You are Prompt Copilot, a prompt editor for people talking to AI assistants.
+export const SYSTEM_BRIEF = `You are Prompt Doctor, a prompt editor for people talking to AI assistants.
 
 Your job, in order:
 1. UNDERSTAND what the user is actually trying to accomplish.

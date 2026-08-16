@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<title>Prompt Copilot — local testbed</title>
+<title>Prompt Doctor — local testbed</title>
 <style>
   :root { color-scheme: light dark; }
   body { margin:0; font:14px/1.5 ui-sans-serif,-apple-system,"Segoe UI",sans-serif; background:#f6f6f9; color:#16161a; }
@@ -100,7 +100,7 @@ if (auto) {
     const text = 'I have java notes from 10 years ago. I want you to check everything and tell me what is missing because I want to prepare for interviews.';
     if ('value' in el) el.value = text; else el.textContent = text;
     el.dispatchEvent(new InputEvent('input', { bubbles: true }));
-    const sr = document.querySelector('[data-prompt-copilot]').shadowRoot;
+    const sr = document.querySelector('[data-prompt-doctor]').shadowRoot;
     sr.querySelector('.trigger').click();
     await wait(1800);
     if (auto === 'improved') sr.querySelector('.next')?.click();

@@ -116,7 +116,7 @@ export function spec(o: CallOptions): Spec {
 
 function classify(status: number, body: string): ProviderError {
   if (status === 401 || status === 403) {
-    return new ProviderError('bad_api_key', 'Your API key was rejected. Check it in Prompt Copilot settings.');
+    return new ProviderError('bad_api_key', 'Your API key was rejected. Check it in Prompt Doctor settings.');
   }
   if (status === 429) {
     return new ProviderError('rate_limited', 'Rate limit or quota reached at your provider. Try again shortly.');
@@ -175,7 +175,7 @@ const sleep = (ms: number): Promise<void> => new Promise((r) => setTimeout(r, ms
  * message is more useful than more waiting.
  */
 export async function callProvider(o: CallOptions): Promise<string> {
-  if (!o.apiKey) throw new ProviderError('no_api_key', 'Add an API key in Prompt Copilot settings to get started.');
+  if (!o.apiKey) throw new ProviderError('no_api_key', 'Add an API key in Prompt Doctor settings to get started.');
   const s = spec(o);
 
   let res: Response;

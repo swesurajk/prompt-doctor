@@ -66,7 +66,7 @@ describe('findPromptBox', () => {
   });
 
   it('never returns our own UI', () => {
-    document.body.innerHTML = '<div data-prompt-copilot><textarea placeholder="Ask"></textarea></div>';
+    document.body.innerHTML = '<div data-prompt-doctor><textarea placeholder="Ask"></textarea></div>';
     place(document.querySelector('textarea')!, {});
     expect(findPromptBox()).toBeNull();
   });

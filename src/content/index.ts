@@ -1,9 +1,9 @@
 import type { AnalyzeRequest, AnalyzeResponse, Mode, Settings } from '../shared/types.ts';
 import { findPromptBox, platformLabel, readPrompt, writePrompt, type PromptBox } from './adapters.ts';
-import { Copilot } from './panel.ts';
+import { PromptDoctor } from './panel.ts';
 
 let box: PromptBox | null = null;
-let ui: Copilot | null = null;
+let ui: PromptDoctor | null = null;
 let settings: Settings | null = null;
 
 function analyze(prompt: string, mode: Mode, answers?: { question: string; answer: string }[]): Promise<AnalyzeResponse> {
@@ -12,13 +12,13 @@ function analyze(prompt: string, mode: Mode, answers?: { question: string; answe
     (): AnalyzeResponse => ({
       ok: false,
       code: 'network',
-      error: 'Prompt Copilot lost its connection to the extension. Reload the page and try again.',
+      error: 'Prompt Doctor lost its connection to the extension. Reload the page and try again.',
     }),
   );
 }
 
-function ensureUi(): Copilot {
-  ui ??= new Copilot({
+function ensureUi(): PromptDoctor {
+  ui ??= new PromptDoctor({
     getPrompt: () => (box ? readPrompt(box) : ''),
     applyPrompt: (text) => (box ? writePrompt(box, text) : false),
     analyze,

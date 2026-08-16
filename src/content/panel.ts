@@ -59,7 +59,7 @@ type State =
   | { name: 'improved'; a: ScoredAnalysis }
   | { name: 'error'; message: string; settings: boolean };
 
-export class Copilot {
+export class PromptDoctor {
   private host = document.createElement('div');
   private root: ShadowRoot;
   private trigger!: HTMLButtonElement;
@@ -75,7 +75,7 @@ export class Copilot {
 
   constructor(private hooks: PanelHooks) {
     this.mode = hooks.defaultMode;
-    this.host.setAttribute('data-prompt-copilot', '');
+    this.host.setAttribute('data-prompt-doctor', '');
     // Keep the host out of the page's layout entirely; children are position:fixed.
     // No `all:initial` here — inline styles beat :host rules, and that would undo
     // the font-family the shadow CSS sets. The reset lives in :host instead.
@@ -86,11 +86,11 @@ export class Copilot {
         title="Analyze and improve this prompt (Alt+Shift+P)">
         <span class="spark" aria-hidden="true">✨</span><span>Improve</span>
       </button>
-      <section class="panel" role="dialog" aria-modal="false" aria-label="Prompt Copilot" hidden>
+      <section class="panel" role="dialog" aria-modal="false" aria-label="Prompt Doctor" hidden>
         <header>
           <div>
-            <div class="title">✨ Prompt Copilot</div>
-            <div class="sub">AI Prompt Analyzer &amp; Assistant</div>
+            <div class="title">✨ Prompt Doctor</div>
+            <div class="sub">Diagnose &amp; improve your AI prompts</div>
           </div>
           <div class="grow"></div>
           <button class="iconbtn settings" type="button" title="Settings" aria-label="Settings">⚙</button>

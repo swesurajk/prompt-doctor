@@ -52,10 +52,10 @@ until this passes, nothing has proven that a request body, a response shape or a
 right.
 
 ```bash
-PROMPT_COPILOT_KEY=sk-ant-... npm run eval
-PROMPT_COPILOT_KEY=sk-...     npm run eval -- --provider openai --model gpt-4.1-mini
-PROMPT_COPILOT_KEY=...        npm run eval -- --provider google --model gemini-2.5-flash
-PROMPT_COPILOT_KEY=x          npm run eval -- --provider custom --base-url http://localhost:11434/v1
+PROMPT_DOCTOR_KEY=sk-ant-... npm run eval
+PROMPT_DOCTOR_KEY=sk-...     npm run eval -- --provider openai --model gpt-4.1-mini
+PROMPT_DOCTOR_KEY=...        npm run eval -- --provider google --model gemini-2.5-flash
+PROMPT_DOCTOR_KEY=x          npm run eval -- --provider custom --base-url http://localhost:11434/v1
 npm run eval -- --case short-factual      # one case
 VERBOSE=1 npm run eval                    # print every improved prompt
 ```
@@ -104,8 +104,8 @@ that the endpoint accepts the request body.
 To close the gap, get a key and run:
 
 ```bash
-PROMPT_COPILOT_KEY=AIza... npm run eval -- --provider google --model gemini-2.5-flash
-PROMPT_COPILOT_KEY=sk-ant-... npm run eval
+PROMPT_DOCTOR_KEY=AIza... npm run eval -- --provider google --model gemini-2.5-flash
+PROMPT_DOCTOR_KEY=sk-ant-... npm run eval
 ```
 
 Google AI Studio (aistudio.google.com/apikey) has a free tier that covers a full 7-case run.
@@ -152,4 +152,4 @@ stack trace, and an already-excellent long prompt (must not be "improved").
 - [ ] `npm run check`
 - [ ] Spot-check all six sites: button appears, does not cover the send button, writes back
 - [ ] Bump `version` in `public/manifest.json`
-- [ ] `cd dist && zip -r ../prompt-copilot-<version>.zip .`
+- [ ] `cd dist && zip -r ../prompt-doctor-<version>.zip .`

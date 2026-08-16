@@ -153,7 +153,7 @@ export function precheck(prompt: string): Precheck {
       code: 'prompt_too_long',
       message:
         `This prompt is ${trimmed.length.toLocaleString()} characters — ${over.toLocaleString()} over the limit. ` +
-        `Prompt Copilot will not silently cut your text. Analyze the instruction part on its own, ` +
+        `Prompt Doctor will not silently cut your text. Analyze the instruction part on its own, ` +
         `then paste the bulk data back in afterwards.`,
     };
   }

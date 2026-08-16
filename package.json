@@ -1,8 +1,8 @@
 {
-  "name": "prompt-copilot",
+  "name": "prompt-doctor",
   "version": "0.1.0",
   "private": true,
-  "description": "Prompt Copilot — AI Prompt Analyzer & Assistant (Chrome MV3)",
+  "description": "Prompt Doctor — diagnose & improve your AI prompts (Chrome MV3)",
   "type": "module",
   "scripts": {
     "build": "node tools/build.mjs",
@@ -13,7 +13,7 @@
     "test:watch": "vitest",
     "check": "npm run typecheck && npm run test && npm run build",
     "eval": "node tools/eval.mjs",
-    "zip": "npm run build && cd dist && zip -qr ../prompt-copilot.zip . && echo 'packaged → prompt-copilot.zip'"
+    "zip": "npm run build && cd dist && zip -qr ../prompt-doctor.zip . && echo 'packaged → prompt-doctor.zip'"
   },
   "devDependencies": {
     "@types/chrome": "^0.0.268",

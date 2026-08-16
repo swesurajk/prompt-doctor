@@ -1,13 +1,13 @@
 # Privacy
 
-Prompt Copilot reads what you type into AI chat boxes. That is about as sensitive as browser
+Prompt Doctor reads what you type into AI chat boxes. That is about as sensitive as browser
 extensions get, so the design starts from the data and works outwards.
 
 ## What leaves your browser
 
 **Your prompt, when you click ✨ Improve, to the AI provider you configured. Nothing else, ever.**
 
-- No backend. There is no Prompt Copilot server to send anything to.
+- No backend. There is no Prompt Doctor server to send anything to.
 - No analytics, no telemetry, no crash reporting, no remote config, no update pings.
 - Nothing is sent on page load, on focus, or as you type. The button appearing costs zero requests.
 - One click = exactly one request, to one host you chose.
@@ -70,7 +70,7 @@ No `tabs` (cannot enumerate your tabs), no `scripting` (cannot inject into arbit
 ## Third parties
 
 Your chosen provider receives your prompt and applies **their** privacy policy, which may include
-retention for abuse monitoring. Prompt Copilot cannot change that; it can only make sure that
+retention for abuse monitoring. Prompt Doctor cannot change that; it can only make sure that
 transfer is deliberate, visible, and to a destination you picked. If that is not acceptable for
 certain prompts, point the custom provider at a local model (Ollama, LM Studio) and nothing leaves
 the machine at all.

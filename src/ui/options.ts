@@ -130,7 +130,7 @@ $('clearKey').addEventListener('click', async () => {
 });
 
 $('clearData').addEventListener('click', async () => {
-  if (!confirm('Remove API keys, history and settings stored by Prompt Copilot on this device?')) return;
+  if (!confirm('Remove API keys, history and settings stored by Prompt Doctor on this device?')) return;
   await clearLocalData();
   await load();
   flash('Cleared');
