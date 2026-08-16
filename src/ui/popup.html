@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Prompt Copilot</title>
+<link rel="stylesheet" href="pages.css" />
+<style>
+  body { width: 320px; background: var(--card); }
+  .wrap { padding: 16px; max-width: none; }
+  .card { padding: 14px; margin-bottom: 10px; background: var(--bg); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand">
+    <div class="mark">✨</div>
+    <div>
+      <h1 style="font-size:16px">Prompt Copilot</h1>
+      <div class="sub">AI Prompt Analyzer &amp; Assistant</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="status"><span class="dot" id="dot"></span><span id="statusText">Checking…</span></div>
+    <div class="hint" id="statusHint" style="margin-top:6px"></div>
+  </div>
+
+  <div class="card">
+    <h2>How it works</h2>
+    <ol class="steps">
+      <li>Type your prompt on a supported AI site</li>
+      <li>Click <b>✨ Improve</b> above the box</li>
+      <li>Read the health score and gaps</li>
+      <li>Use, edit or copy the improved prompt</li>
+    </ol>
+    <div class="hint" style="margin-top:10px">Shortcut: <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd></div>
+  </div>
+
+  <div class="card">
+    <h2>Supported</h2>
+    <div class="chips">
+      <span>ChatGPT</span><span>Claude</span><span>Gemini</span>
+      <span>Perplexity</span><span>Copilot</span><span>Grok</span>
+    </div>
+  </div>
+
+  <button class="primary" id="settings" type="button" style="width:100%">Settings</button>
+</div>
+<script type="module" src="popup.js"></script>
+</body>
+</html>

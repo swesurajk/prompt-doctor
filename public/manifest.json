@@ -1,0 +1,46 @@
+{
+  "manifest_version": 3,
+  "name": "Prompt Copilot",
+  "version": "0.1.0",
+  "description": "Analyze, score and improve your AI prompts right next to the chat box. Works on ChatGPT, Claude, Gemini and more.",
+  "minimum_chrome_version": "116",
+
+  "permissions": ["storage"],
+
+  "host_permissions": [
+    "https://api.openai.com/*",
+    "https://api.anthropic.com/*",
+    "https://generativelanguage.googleapis.com/*"
+  ],
+  "optional_host_permissions": ["http://*/*", "https://*/*"],
+
+  "background": { "service_worker": "background.js", "type": "module" },
+
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Prompt Copilot",
+    "default_icon": { "16": "icons/16.png", "32": "icons/32.png", "48": "icons/48.png", "128": "icons/128.png" }
+  },
+  "options_ui": { "page": "options.html", "open_in_tab": true },
+  "icons": { "16": "icons/16.png", "32": "icons/32.png", "48": "icons/48.png", "128": "icons/128.png" },
+
+  "content_scripts": [
+    {
+      "matches": [
+        "https://chatgpt.com/*",
+        "https://chat.openai.com/*",
+        "https://claude.ai/*",
+        "https://gemini.google.com/*",
+        "https://www.perplexity.ai/*",
+        "https://perplexity.ai/*",
+        "https://copilot.microsoft.com/*",
+        "https://m365.cloud.microsoft/*",
+        "https://grok.com/*",
+        "https://x.com/i/grok*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ]
+}

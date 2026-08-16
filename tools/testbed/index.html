@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Prompt Copilot — local testbed</title>
+<style>
+  :root { color-scheme: light dark; }
+  body { margin:0; font:14px/1.5 ui-sans-serif,-apple-system,"Segoe UI",sans-serif; background:#f6f6f9; color:#16161a; }
+  @media (prefers-color-scheme: dark) { body { background:#111114; color:#eee; } }
+  .app { display:flex; flex-direction:column; height:100vh; max-width:820px; margin:0 auto; }
+  header { padding:14px 18px; font-weight:600; display:flex; gap:12px; align-items:center; }
+  header select { font:inherit; padding:4px 8px; }
+  .thread { flex:1; overflow:auto; padding:18px; opacity:.55; }
+  .composer { padding:14px 18px 26px; }
+  .box { border:1px solid #ccc; border-radius:14px; padding:12px 14px; background:#fff; display:flex; gap:10px; align-items:flex-end; }
+  @media (prefers-color-scheme: dark) { .box { background:#1b1b21; border-color:#333; } }
+  textarea, .pm { flex:1; border:0; outline:0; resize:none; font:inherit; background:transparent; color:inherit; min-height:24px; max-height:200px; overflow:auto; }
+  .pm:empty::before { content: attr(data-placeholder); opacity:.45; }
+  .send { border:0; border-radius:999px; width:30px; height:30px; background:#6d5efc; color:#fff; cursor:pointer; }
+  .log { font:11px ui-monospace,Menlo,monospace; padding:8px 18px; opacity:.6; white-space:pre-wrap; max-height:120px; overflow:auto; }
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    Fake AI site —
+    <select id="kind">
+      <option value="pm">contenteditable (ProseMirror / Claude, ChatGPT)</option>
+      <option value="ta">textarea (Copilot, Grok)</option>
+      <option value="quill">Quill .ql-editor (Gemini)</option>
+    </select>
+    <label><input type="checkbox" id="late" /> mount composer after 2s</label>
+  </header>
+  <div class="thread">Thread messages would be here. The composer below is what the extension must find.</div>
+  <div class="composer" id="composer"></div>
+  <div class="log" id="log"></div>
+</div>
+
+<script>
+/* ---- minimal chrome.* stub so dist/content.js runs outside an extension ---- */
+const log = (...a) => { document.getElementById('log').textContent += a.join(' ') + '\n'; };
+const CANNED = {
+  ok: true,
+  analysis: {
+    taskType: 'interview_prep', score: 62, band: 'fair',
+    intent: 'Audit ten-year-old Java notes and close gaps before interviews.',
+    dimensions: [
+      { id: 'output_format', relevance: 'critical', status: 'missing', note: 'No format stated — a gap table would fit.' },
+      { id: 'scope', relevance: 'critical', status: 'weak', note: '"Everything" could mean core Java or the whole ecosystem.' },
+      { id: 'audience', relevance: 'useful', status: 'missing', note: 'Target seniority unknown, changes depth a lot.' },
+      { id: 'objective', relevance: 'critical', status: 'ok', note: 'Goal is clear: find what is missing.' },
+      { id: 'context', relevance: 'useful', status: 'ok', note: 'Notes age and purpose given.' }
+    ],
+    clarifyingQuestions: [
+      { id: 'q0', question: 'What seniority are you interviewing for?', options: ['Junior', 'Mid', 'Senior', 'Staff+'] }
+    ],
+    improvedPrompt: 'I have Java notes written around 2015 and I am preparing for backend interviews.\n\nReview the notes I paste next and tell me what is missing or outdated, covering:\n- language features added in Java 9–21\n- concurrency and the memory model\n- collections and performance characteristics\n- JVM internals and garbage collection\n\nReturn a table: Topic | In my notes | Missing/outdated | Why it matters in interviews.\nFlag anything factually wrong. Ask me for the notes before answering.',
+    changes: ['Named the Java versions to check against', 'Defined the review scope', 'Specified a table output', 'Added a rule to ask for the notes first'],
+    alreadyStrong: false
+  }
+};
+window.chrome = {
+  runtime: {
+    id: 'testbed',
+    sendMessage: async (m) => {
+      log('→ background:', m.type, m.mode ?? '', (m.prompt ?? '').slice(0, 40));
+      if (m.type === 'ping') return { configured: true, settings: { showButton: true, showHealth: true, defaultMode: 'quick' } };
+      if (m.type === 'openOptions') { log('(would open options page)'); return; }
+      await new Promise((r) => setTimeout(r, 1200));
+      return CANNED;
+    },
+  },
+  storage: { onChanged: { addListener() {} } },
+};
+
+/* ---- composer variants ---- */
+const composer = document.getElementById('composer');
+function mount() {
+  const kind = document.getElementById('kind').value;
+  const inner = kind === 'ta'
+    ? '<textarea placeholder="Message the assistant" rows="1"></textarea>'
+    : kind === 'quill'
+      ? '<div class="pm ql-editor" contenteditable="true" role="textbox" data-placeholder="Ask Gemini"></div>'
+      : '<div class="pm ProseMirror" id="prompt-textarea" contenteditable="true" role="textbox" aria-label="Write your prompt to Claude" data-placeholder="Write your prompt"></div>';
+  composer.innerHTML = `<div class="box">${inner}<button class="send" title="Send">↑</button></div>`;
+  const el = composer.querySelector('textarea, .pm');
+  el.addEventListener('input', () => log('site saw input:', JSON.stringify((el.value ?? el.innerText).slice(0, 60))));
+}
+document.getElementById('kind').addEventListener('change', mount);
+document.getElementById('late').addEventListener('change', (e) => {
+  composer.innerHTML = '';
+  e.target.checked ? setTimeout(mount, 2000) : mount();
+});
+mount();
+</script>
+<script src="../../dist/content.js"></script>
+</body>
+</html>

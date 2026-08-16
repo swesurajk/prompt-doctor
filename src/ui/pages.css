@@ -1,0 +1,90 @@
+:root {
+  --bg: #fbfbfd;
+  --card: #ffffff;
+  --fg: #16161a;
+  --muted: #6b7280;
+  --line: #e6e6ee;
+  --accent: #6d5efc;
+  --ok: #0f9d64;
+  --bad: #dc2626;
+  color-scheme: light dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #131317; --card: #1b1b21; --fg: #f2f2f5; --muted: #9a9aa7; --line: #2f2f38; }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--fg);
+  font: 14px/1.5 ui-sans-serif, -apple-system, "Segoe UI", Roboto, Inter, sans-serif;
+}
+.wrap { max-width: 660px; margin: 0 auto; padding: 32px 20px 64px; }
+h1 { font-size: 19px; margin: 0; letter-spacing: -0.01em; }
+.sub { color: var(--muted); font-size: 12.5px; margin-top: 2px; }
+.brand { display: flex; align-items: center; gap: 10px; margin-bottom: 22px; }
+.brand .mark {
+  width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center;
+  background: linear-gradient(140deg, #7c6cff, #4f46e5); color: #fff; font-size: 17px;
+}
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px; margin-bottom: 14px; }
+.card h2 { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0 0 14px; }
+.field { margin-bottom: 14px; }
+.field:last-child { margin-bottom: 0; }
+label { display: block; font-size: 12.5px; font-weight: 550; margin-bottom: 5px; }
+.hint { color: var(--muted); font-size: 11.5px; margin-top: 5px; line-height: 1.45; }
+input[type="text"], input[type="password"], input[type="url"], select, textarea {
+  width: 100%; padding: 8px 10px; border-radius: 9px; font: inherit; font-size: 13px;
+  border: 1px solid var(--line); background: var(--bg); color: var(--fg);
+}
+input:focus, select:focus, textarea:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+textarea { min-height: 76px; resize: vertical; }
+.row { display: flex; gap: 10px; align-items: flex-end; }
+.row > * { flex: 1; }
+.row > .shrink { flex: 0 0 auto; }
+button {
+  font: inherit; font-size: 13px; font-weight: 550; cursor: pointer;
+  padding: 8px 14px; border-radius: 9px; border: 1px solid var(--line);
+  background: var(--card); color: var(--fg);
+}
+button:hover { border-color: var(--muted); }
+button.primary { background: var(--accent); color: #fff; border-color: transparent; }
+button.danger { color: var(--bad); }
+button:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.toggle { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px; }
+.toggle:last-child { margin-bottom: 0; }
+.toggle input { margin-top: 2px; width: 15px; height: 15px; accent-color: var(--accent); }
+.toggle label { margin: 0; font-weight: 500; }
+.status { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--muted); }
+.dot { width: 7px; height: 7px; border-radius: 50%; background: var(--muted); }
+.dot.on { background: var(--ok); }
+.dot.off { background: var(--bad); }
+ol.steps { margin: 0; padding-left: 18px; color: var(--muted); font-size: 12.5px; line-height: 1.9; }
+ol.steps b { color: var(--fg); font-weight: 550; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chips span { border: 1px solid var(--line); border-radius: 999px; padding: 3px 10px; font-size: 11.5px; color: var(--muted); }
+.saved { color: var(--ok); font-size: 12px; opacity: 0; transition: opacity .2s; }
+.saved.show { opacity: 1; }
+kbd {
+  font: 11px ui-monospace, Menlo, monospace; border: 1px solid var(--line);
+  border-bottom-width: 2px; border-radius: 5px; padding: 1px 5px; color: var(--muted);
+}
+a { color: var(--accent); }
+
+.history { margin-top: 12px; display: flex; flex-direction: column; gap: 6px; }
+.history:empty { display: none; }
+.history .entry {
+  border: 1px solid var(--line); border-radius: 10px; padding: 9px 11px;
+  display: flex; gap: 10px; align-items: flex-start;
+}
+.history .entry .grow { flex: 1; min-width: 0; }
+.history .score {
+  flex: 0 0 auto; font-size: 11.5px; font-weight: 650;
+  border-radius: 6px; padding: 2px 7px; border: 1px solid var(--line);
+}
+.history .prompt {
+  font-size: 12.5px; line-height: 1.4;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.history .meta { color: var(--muted); font-size: 11px; margin-top: 3px; }
+.history button {
+  padding: 3px 8px; font-size: 11.5px; font-weight: 500; flex: 0 0 auto;
+}

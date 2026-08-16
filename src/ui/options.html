@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Prompt Copilot — Settings</title>
+<link rel="stylesheet" href="pages.css" />
+</head>
+<body>
+<div class="wrap">
+  <div class="brand">
+    <div class="mark">✨</div>
+    <div>
+      <h1>Prompt Copilot</h1>
+      <div class="sub">AI Prompt Analyzer &amp; Assistant</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>AI provider</h2>
+    <div class="field">
+      <label for="provider">Provider</label>
+      <select id="provider">
+        <option value="anthropic">Anthropic (Claude)</option>
+        <option value="openai">OpenAI</option>
+        <option value="google">Google (Gemini)</option>
+        <option value="custom">Custom — OpenAI-compatible endpoint</option>
+      </select>
+      <div class="hint">Prompt Copilot calls your provider directly with your own key. Nothing passes
+        through any server we run.</div>
+    </div>
+
+    <div class="field" id="baseUrlField" hidden>
+      <label for="baseUrl">Base URL</label>
+      <input type="url" id="baseUrl" placeholder="http://localhost:11434/v1" spellcheck="false" />
+      <div class="hint">Must expose <code>POST {baseUrl}/chat/completions</code>. Works with Ollama,
+        LM Studio, vLLM and most gateways. You will be asked to grant access to this host.</div>
+    </div>
+
+    <div class="field">
+      <label for="model">Model</label>
+      <input type="text" id="model" list="models" spellcheck="false" autocomplete="off" />
+      <datalist id="models"></datalist>
+      <div class="hint">A small fast model is usually enough. Analysis is one request per click.</div>
+    </div>
+
+    <div class="field">
+      <label for="apiKey">API key</label>
+      <div class="row">
+        <input type="password" id="apiKey" placeholder="Not set" spellcheck="false" autocomplete="off" />
+        <button class="shrink" id="clearKey" type="button">Remove</button>
+      </div>
+      <div class="hint" id="keyHint">Stored with <code>chrome.storage.local</code>, never synced, and readable
+        only by the extension's service worker — never by a page you visit.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Behaviour</h2>
+    <div class="field">
+      <label for="mode">Default improvement mode</label>
+      <select id="mode">
+        <option value="quick">Quick — clarify and tighten, stay short</option>
+        <option value="deep">Deep — add missing context and structure</option>
+        <option value="technical">Technical — precision, versions, constraints</option>
+        <option value="research">Research — scope, sources, evidence</option>
+        <option value="interview">Interview — prep depth and follow-ups</option>
+      </select>
+    </div>
+    <div class="toggle"><input type="checkbox" id="showButton" /><label for="showButton">Show the ✨ Improve
+      button next to prompt boxes<div class="hint">Off: use <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd> instead.</div></label></div>
+    <div class="toggle"><input type="checkbox" id="showHealth" /><label for="showHealth">Show the prompt health
+      card<div class="hint">Off: go straight to the improved prompt.</div></label></div>
+    <div class="field">
+      <label for="customInstructions">Standing instructions <span class="hint" style="display:inline">(optional)</span></label>
+      <textarea id="customInstructions" placeholder="e.g. I work in Java/Spring Boot. Prefer British English. Never add role-play framing."></textarea>
+      <div class="hint">Sent with every analysis. Keep it short — it costs tokens on every request.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Privacy</h2>
+    <p class="hint" style="margin-top:0">Your prompt leaves the browser <b>only</b> when you click ✨ Improve,
+      and only to the provider you configured above. Prompt Copilot has no backend, no analytics and no
+      telemetry. Before sending, it scans locally for API keys, tokens and card numbers and warns you.</p>
+    <div class="toggle"><input type="checkbox" id="historyEnabled" /><label for="historyEnabled">Keep a local
+      history of improvements<div class="hint">Off by default. Stored on this device only, last 50 entries,
+      never uploaded.</div></label></div>
+    <div id="historyList" class="history"></div>
+    <div class="row" style="margin-top:14px">
+      <div class="shrink"><button class="danger" id="clearData" type="button">Clear all local data</button></div>
+      <div><span class="hint" id="historyCount"></span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Where it works</h2>
+    <div class="chips">
+      <span>ChatGPT</span><span>Claude</span><span>Gemini</span>
+      <span>Perplexity</span><span>Microsoft Copilot</span><span>Grok</span>
+    </div>
+    <p class="hint">Detection is generic, so it usually keeps working when these sites change their markup.
+      If the button does not appear, focus the prompt box and press
+      <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd>.</p>
+  </div>
+
+  <div class="row">
+    <div><span class="saved" id="saved">Saved</span></div>
+    <div class="shrink"><button class="primary" id="save" type="button">Save settings</button></div>
+  </div>
+</div>
+<script type="module" src="options.js"></script>
+</body>
+</html>

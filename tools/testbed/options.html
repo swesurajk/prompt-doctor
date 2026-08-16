@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8" /><title>Options testbed</title></head>
+<body>
+<!--
+  Renders dist/options.html against an in-memory chrome.storage stub, so the
+  settings and history UI can be checked without loading the extension.
+  Serve the repo root and open /tools/testbed/options.html
+-->
+<script>
+const store = {
+  sync: { settings: { provider: 'google', model: 'gemini-2.5-flash', customBaseUrl: '', defaultMode: 'deep',
+                      showButton: true, showHealth: true, historyEnabled: true, customInstructions: 'I work in Java/Spring Boot.' } },
+  local: {
+    apiKeys: { google: 'AIza-not-a-real-key' },
+    history: [
+      { at: Date.now() - 3.6e6, taskType: 'interview_prep', score: 62,
+        original: 'I have java notes from 10 years ago. I want you to check everything and tell me what is missing because I want to prepare for interviews.',
+        improved: 'I have Java notes written around 2015 and I am preparing for backend interviews…' },
+      { at: Date.now() - 9e7, taskType: 'system_design', score: 25,
+        original: 'Create a system design for my application.', improved: 'Design a system for …' },
+      { at: Date.now() - 6e8, taskType: 'general_question', score: 100,
+        original: 'What is a Java HashMap?', improved: 'What is a Java HashMap?' },
+    ],
+  },
+};
+const area = (name) => ({
+  get: async (k) => (k == null ? { ...store[name] } : { [k]: store[name][k] }),
+  set: async (o) => Object.assign(store[name], o),
+  remove: async (k) => { delete store[name][k]; },
+  clear: async () => { store[name] = {}; },
+});
+window.chrome = {
+  storage: { sync: area('sync'), local: area('local'), onChanged: { addListener() {} } },
+  permissions: { request: async () => true },
+  runtime: { openOptionsPage() {}, id: 'testbed' },
+};
+</script>
+<script type="module">
+  const html = await (await fetch('../../dist/options.html')).text();
+  const doc = new DOMParser().parseFromString(html, 'text/html');
+  document.head.insertAdjacentHTML('beforeend', '<link rel="stylesheet" href="../../dist/pages.css">');
+  document.body.insertAdjacentHTML('beforeend', doc.body.innerHTML);
+  await import('../../dist/options.js');
+</script>
+</body>
+</html>

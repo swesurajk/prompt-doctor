@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    // Relative imports carry .ts so Node can run src/shared/* directly (type
+    // stripping, no build step) for tools/eval.mjs. esbuild handles it natively.
+    "allowImportingTsExtensions": true,
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "types": ["chrome", "vitest/globals"]
+  },
+  "include": ["src", "tests", "tools"]
+}
