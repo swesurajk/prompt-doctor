@@ -7,6 +7,13 @@ goes anywhere near the input box.
 
 It is not a "make it longer" button. A short prompt can score 100.
 
+<p align="center">
+  <img src="docs/panel-health.png" alt="The Prompt Copilot panel showing a score of 62 out of 100, flagging a missing output format, unknown target audience and ambiguous scope, and asking which seniority level the interview is for" width="49%">
+  <img src="docs/panel-improved.png" alt="The improved prompt in an editable box, with a list explaining that Java versions, review scope, table output and a clarification rule were added" width="49%">
+</p>
+<p align="center"><sub>Left: what's weak and why. Right: the rewrite, editable before it goes anywhere.<br>
+Rendered from <code>tools/testbed/</code> with a fixed sample analysis — the UI is real, the numbers are illustrative.</sub></p>
+
 ---
 
 ## What it does

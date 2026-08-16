@@ -29,6 +29,18 @@ showing every message the content script sends and every `input` event the site 
 
 It cannot verify the real sites' markup. Before a release, spot-check each one for real.
 
+`?auto=health` / `?auto=improved` drive the panel to one state and stop, which is how the README
+screenshots are produced — no mockups, the real UI:
+
+```bash
+npm run build && python3 -m http.server 8765 &
+for s in health improved; do
+  "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --disable-gpu \
+    --hide-scrollbars --window-size=1000,620 --virtual-time-budget=9000 \
+    --screenshot="docs/panel-$s.png" "http://localhost:8765/tools/testbed/index.html?auto=$s"
+done
+```
+
 `tools/testbed/options.html` does the same for the settings page: it renders `dist/options.html`
 against an in-memory `chrome.storage` stub seeded with settings and history entries, so the
 history list, per-entry delete and key masking can be checked without loading the extension.
