@@ -6,3 +6,4 @@ public/icons/
 .claude/
 .env
 .env.*
+!.env.example
